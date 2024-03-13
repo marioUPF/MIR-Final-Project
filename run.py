@@ -50,7 +50,11 @@ Xtr,Ytr,Ytr_p,Ytr_o,avg,std = load(wav_dir,csv_dir,groups)
 Xva,Yva,Yva_p,Yva_o,va_avg,va_std = load(wav_dir,csv_dir,vali_groups,avg,std)
 print ('finishing data loading...')
 
-processor = Wav2Vec2FeatureExtractor.from_pretrained(URL, trust_remote_code=True)
+#processor = Wav2Vec2FeatureExtractor.from_pretrained(URL, trust_remote_code=True)
+# make it load pre-trained model locally
+model_directory = './MERT-v1-95M'
+processor = Wav2Vec2FeatureExtractor.from_pretrained(model_directory)
+print("processor type: ", type(processor))
 Xtrs = processor(Xtr, sampling_rate=MERT_SAMPLE_RATE, return_tensors="pt")
 Xvas = processor(Xva, sampling_rate=MERT_SAMPLE_RATE, return_tensors="pt")
 
